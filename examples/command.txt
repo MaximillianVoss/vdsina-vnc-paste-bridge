@@ -1,0 +1,1 @@
+echo VNC_PASTE_READY

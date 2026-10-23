@@ -1,0 +1,14 @@
+{
+  "schema": "repository-pre-creation-snapshot/v1",
+  "observed_at_utc": "2026-10-22T23:58:17.301283+00:00",
+  "owner": "MaximillianVoss",
+  "repository": "vdsina-vnc-paste-bridge",
+  "existed_before_creation": false,
+  "observations": [
+    "Authenticated owner searches for vnc and vdsina returned no repository",
+    "GitHub new-repository form reported the exact repository name is available"
+  ],
+  "requested_visibility": "public",
+  "governance": "https://github.com/MaximillianVoss/repository-governance",
+  "operation": "new repository publication; no existing repository renamed or deleted"
+}

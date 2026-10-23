@@ -1,0 +1,36 @@
+{
+  "schema": "qemu-public-source-fixture/v1",
+  "qemu_upstream_tag": "v7.2.9",
+  "actual_provider_qemu_version": "UNKNOWN",
+  "actual_guest_layout": "UNKNOWN",
+  "sources": [
+    {
+      "path": "vnc.c",
+      "url": "https://raw.githubusercontent.com/qemu/qemu/v7.2.9/ui/vnc.c",
+      "bytes": 130349,
+      "sha256": "3cfa75297da22ab15def9de50021c1e842a3186b1900023acc9cf3633aecb983",
+      "primary_official_repository": true
+    },
+    {
+      "path": "keymaps.c",
+      "url": "https://raw.githubusercontent.com/qemu/qemu/v7.2.9/ui/keymaps.c",
+      "bytes": 8225,
+      "sha256": "ac1509c7455031c54ab470e9993303ca24ec325324bc4a5e4a2f168770d2929c",
+      "primary_official_repository": true
+    },
+    {
+      "path": "en-us",
+      "url": "https://raw.githubusercontent.com/qemu/qemu/v7.2.9/pc-bios/keymaps/en-us",
+      "bytes": 27086,
+      "sha256": "52cf4c523e686078699ed58761c7e1443080305237a5f67a3716832570c5c8e5",
+      "primary_official_repository": true
+    },
+    {
+      "path": "keymaps.h",
+      "url": "https://raw.githubusercontent.com/qemu/qemu/v7.2.9/ui/keymaps.h",
+      "bytes": 2246,
+      "sha256": "e7532f77519396f4c5ae20f1c8cfc066d4b1a7a13b98f4c6e1ffb1513996f92e",
+      "primary_official_repository": true
+    }
+  ]
+}

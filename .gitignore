@@ -1,0 +1,12 @@
+runtime/
+dist/
+__pycache__/
+*.py[cod]
+node_modules/
+.venv/
+.DS_Store
+Thumbs.db
+tests/fixtures/novnc/*
+!tests/fixtures/novnc/SOURCE.safe.json
+tests/fixtures/qemu-v7.2.9/*
+!tests/fixtures/qemu-v7.2.9/SOURCE.safe.json

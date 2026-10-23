@@ -1,0 +1,11 @@
+* text=auto
+extension/*.js -text
+extension/*.css -text
+extension/*.json -text
+cli/*.py -text
+tests/fixtures/*.js -text
+tests/fixtures/novnc/* -text
+tests/fixtures/qemu-v7.2.9/* -text
+*.png binary
+*.jpg binary
+*.ico binary

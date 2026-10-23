@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>VNC Paste Bridge — локальная демонстрация</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="harness.css">
+  <link rel="stylesheet" href="../../extension/content.css">
+  <script defer src="../../extension/core.js"></script>
+  <script defer src="../../extension/provider.js"></script>
+  <script defer src="../../extension/main-bridge.js"></script>
+  <script defer src="../../extension/content.js"></script>
+  <script defer src="harness.js"></script>
+</head>
+<body>
+  <main>
+    <span class="mock-badge">ЛОКАЛЬНАЯ ДЕМОНСТРАЦИЯ</span>
+    <h1>Вставка без спешки.<br>Выполнение под контролем.</h1>
+    <p class="mock-intro">Проверьте текст, передайте его очередью и нажмите Enter отдельным действием. Панель справа показывает интерфейс расширения.</p>
+    <div class="mock-notice">Это тестовый стенд. Подключения к VPS нет, команды не выполняются.</div>
+    <div class="mock-terminal">
+      <div class="mock-terminal-header"><span>Демонстрационный сервер</span><span id="status">Макет подключён</span></div>
+      <div id="info">192.0.2.10 · тестовый адрес</div>
+      <canvas width="560" height="36" tabindex="0" aria-label="Тестовое поле VNC без подключения к серверу"></canvas>
+      <pre id="mock-output" aria-label="Текст, полученный локальным макетом"></pre>
+      <p id="mock-count">Получено макетом: 0 символов; Enter: 0</p>
+    </div>
+    <div class="mock-controls">
+      <button id="mock-disconnect" type="button">Отключить макет</button>
+      <button id="mock-connect" type="button">Подключить макет</button>
+      <button id="mock-reset" type="button">Сбросить журнал макета</button>
+    </div>
+    <p class="mock-footnote">Макет проверяет интерфейс и очередь. Он не подтверждает работу VNC на реальном сервере.</p>
+  </main>
+</body>
+</html>

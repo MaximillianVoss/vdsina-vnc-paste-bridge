@@ -1,0 +1,11 @@
+{
+  "schema": "vnc-paste-packet/v1",
+  "text": "echo VNC_PASTE_READY",
+  "sha256": "0a22382d02c21a05e81ecb1d9e48f318ff8ac6d0003bf2f29c075de58e0cfbff",
+  "utf8_bytes": 20,
+  "code_points": 20,
+  "batch_size": 256,
+  "character_delay_ms": 12,
+  "batch_delay_ms": 120,
+  "newline_mode": "reject"
+}

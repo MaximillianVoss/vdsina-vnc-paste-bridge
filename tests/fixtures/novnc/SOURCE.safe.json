@@ -1,0 +1,42 @@
+{
+  "schema": "novnc-public-source-fixture/v1",
+  "actual_provider_qemu_version": "UNKNOWN",
+  "sources": [
+    {
+      "path": "start.html",
+      "url": "https://cp.vdsina.ru/static/novnc/start.html?v=08",
+      "bytes": 20655,
+      "sha256": "e3fac50cd8d1a3d56ed6edeb6e4ef4cd56a89949d5fcc48f77e5b1b42bb7082d"
+    },
+    {
+      "path": "keyboard.js",
+      "url": "https://cp.vdsina.ru/static/novnc/core/input/keyboard.js",
+      "bytes": 10167,
+      "sha256": "f9c77fa3f5400b89cdb64e7e235bd76431a9f3199d8982e36977c9882976c5c5"
+    },
+    {
+      "path": "util.js",
+      "url": "https://cp.vdsina.ru/static/novnc/core/input/util.js",
+      "bytes": 6035,
+      "sha256": "43bfb6f255a7030c6ca38749c3ee1a5feeb601e296ff32f6a1d0bd483edfa852"
+    },
+    {
+      "path": "rfb.js",
+      "url": "https://cp.vdsina.ru/static/novnc/core/rfb.js",
+      "bytes": 120368,
+      "sha256": "36a359fb324419b5215d600f3076011105849c0866b4b5f34087f303d8be2d8d"
+    },
+    {
+      "path": "keysymdef.js",
+      "url": "https://cp.vdsina.ru/static/novnc/core/input/keysymdef.js",
+      "bytes": 25374,
+      "sha256": "76f338d45fb73b7decb7d8b4ef6e95edf7ce9583722c5220642a9be85fc2cc89"
+    },
+    {
+      "path": "xtscancodes.js",
+      "url": "https://cp.vdsina.ru/static/novnc/core/input/xtscancodes.js",
+      "bytes": 14400,
+      "sha256": "f0fc982627e1c02feaac1bd50d7fdd3bcbb05f0062b910d8002f47d1b08967a6"
+    }
+  ]
+}
