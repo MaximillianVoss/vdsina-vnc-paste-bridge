@@ -17,7 +17,7 @@ ALLOWED_FILES = (
     "cli/__init__.py", "cli/__main__.py", "cli/vnc_paste_bridge.py",
     "examples/command.txt", "examples/packet.json",
     "README.md", "CLI.md", "CONTRACT.md", "LICENSE.md", "Start-Bridge.ps1",
-    "docs/preview.jpg",
+    "docs/preview.jpg", "docs/USER_GUIDE.md",
 )
 
 

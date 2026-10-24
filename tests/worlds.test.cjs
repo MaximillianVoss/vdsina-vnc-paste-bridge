@@ -65,7 +65,7 @@ test("separate-world bootstrap mounts the panel and starts no command", () => {
   assert.equal(result.panels.length, 1);
   assert.equal(result.panels[0].id, "vpb-widget");
   assert.match(result.panels[0].innerHTML, /Вставка в VNC/);
-  assert.match(result.panels[0].innerHTML, /class="vpb-version">1\.1\.0</);
+  assert.ok(result.panels[0].innerHTML.includes('class="vpb-version">' + manifest.version + '<'));
   assert.equal(result.controls.get('[data-vpb="send"]').disabled, true);
   assert.equal(result.controls.get('[data-vpb="enter"]').disabled, true);
   assert.equal(result.dispatches, 0);

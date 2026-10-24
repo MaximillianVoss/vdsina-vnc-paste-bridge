@@ -91,6 +91,10 @@ test("mount and collapse send nothing; all existing selectors remain and aria-ex
     assert.equal(f.controls.get("send").disabled, true);
     assert.equal(f.controls.get("enter").disabled, true);
     assert.equal(f.controls.get("advanced").open, false);
+    assert.equal(f.controls.get("help").open, false);
+    assert.match(f.panel.html, /href="https:\/\/github\.com\/MaximillianVoss\/vdsina-vnc-paste-bridge\/blob\/main\/docs\/USER_GUIDE\.md"[^>]*rel="noopener noreferrer"/);
+    assert.match(f.controls.get("send-help").textContent, /Сначала нажмите «Проверить»/);
+    assert.equal(f.controls.get("send").getAttribute("aria-describedby"), f.controls.get("send-help").getAttribute("id"));
     await f.controls.get("collapse").trigger("click");
     assert.equal(f.controls.get("body").hidden, true);
     assert.equal(f.controls.get("collapse").getAttribute("aria-expanded"), "false");
@@ -115,6 +119,8 @@ test("preview exposes metrics but no transmission; sending updates browser-only 
     assert.equal(c.get("send").disabled, false);
     await c.get("send").trigger("click");
     assert.equal(c.get("text").disabled, true);
+    assert.match(c.get("send-help").textContent, /Передача уже идёт/);
+    assert.match(c.get("stop-help").textContent, /символы не удаляет/);
     await f.settled(() => c.get("status").dataset.state === "browser-sent");
     assert.equal(f.delivered.join(""), "A(9)");
     assert.equal(c.get("progress-bar").value, 4);
@@ -122,10 +128,17 @@ test("preview exposes metrics but no transmission; sending updates browser-only 
     assert.match(c.get("progress-bar").getAttribute("aria-valuetext"), /получение сервером не подтверждено/);
     assert.equal(c.get("enter").disabled, true);
     assert.equal(c.get("send").disabled, true);
+    assert.match(c.get("status").textContent, /Сверьте строку в консоли/);
+    assert.match(c.get("status").textContent, /снова «Проверить», затем «Отдельный Enter»/);
+    assert.match(c.get("status").textContent, /Повторная отправка вставит текст ещё раз/);
+    assert.match(c.get("enter-help").textContent, /Сначала нажмите «Проверить», даже если текст уже передан/);
     await c.get("preview").trigger("click");
     await c.get("enter").trigger("click");
     await f.settled(() => c.get("status").dataset.state === "browser-sent" && f.delivered.includes("<Enter>"));
     assert.equal(f.delivered.filter(v => v === "<Enter>").length, 1);
+    assert.match(c.get("status").textContent, /^Enter передан браузером/);
+    assert.match(c.get("status").textContent, /выполнение на сервере ещё не подтверждено/);
+    assert.doesNotMatch(c.get("status").textContent, /Для выполнения: снова/);
     assert.deepEqual(f.requests.map(r => r.kind), ["probe", "start", "probe", "enter"]);
   } finally { f.dispose(); }
 });
@@ -142,9 +155,13 @@ test("LF choice and imported LF packet expose warning/ack; edits revoke acknowle
     await c.get("text").trigger("input");
     await c.get("preview").trigger("click");
     assert.equal(c.get("send").disabled, true);
+    assert.match(c.get("send-help").textContent, /разрешите Enter для каждого LF/);
+    assert.match(c.get("status").textContent, /LF: он может выполнить строку/);
+    assert.doesNotMatch(c.get("status").textContent, /вставляет без Enter/);
     c.get("ack").checked = true;
     await c.get("ack").trigger("change");
     assert.equal(c.get("send").disabled, false);
+    assert.match(c.get("send-help").textContent, /Каждый LF нажмёт Enter и может выполнить строку/);
     await c.get("text").trigger("input");
     assert.equal(c.get("ack").checked, false);
     assert.equal(c.get("send").disabled, true);
@@ -158,6 +175,45 @@ test("LF choice and imported LF packet expose warning/ack; edits revoke acknowle
     assert.equal(c.get("text-count").textContent, "3 символов");
     assert.equal(c.get("ack").checked, false);
     assert.deepEqual(f.delivered, []);
+    await c.get("preview").trigger("click");
+    c.get("ack").checked = true;
+    await c.get("ack").trigger("change");
+    await c.get("send").trigger("click");
+    await f.settled(() => c.get("status").dataset.state === "browser-sent");
+    assert.deepEqual(f.delivered, ["c", "<Enter>", "d"]);
+    assert.match(c.get("status").textContent, /LF переданы как Enter и могли выполнить строки/);
+    assert.match(c.get("status").textContent, /только для оставшейся незавершённой строки, после новой проверки/);
+    assert.doesNotMatch(c.get("status").textContent, /Для выполнения: снова/);
+  } finally { f.dispose(); }
+});
+
+test("Stop preserves the sent prefix; Clear only empties the local field", async () => {
+  const f = setup(); const c = f.controls;
+  try {
+    c.get("text").value = "abcdef";
+    c.get("char-delay").value = "100";
+    await c.get("text").trigger("input");
+    await c.get("preview").trigger("click");
+    await c.get("send").trigger("click");
+    await f.settled(() => f.delivered.length > 0);
+    const sentPrefix = f.delivered.join("");
+    assert.ok(sentPrefix.length < 6);
+    await c.get("stop").trigger("click");
+    await f.settled(() => !c.get("text").disabled);
+    assert.equal(c.get("status").dataset.state, "uncertain");
+    assert.equal(f.delivered.join(""), sentPrefix);
+    assert.equal(c.get("text").value, "abcdef");
+    const requestCount = f.requests.length;
+    await c.get("clear").trigger("click");
+    assert.equal(c.get("text").value, "");
+    assert.equal(f.delivered.join(""), sentPrefix);
+    assert.equal(f.requests.length, requestCount);
+    assert.match(c.get("status").textContent, /Уже введённый в консоль текст не удалён/);
+    await c.get("preview").trigger("click");
+    assert.equal(c.get("send").disabled, true);
+    assert.equal(c.get("enter").disabled, false);
+    assert.match(c.get("send-help").textContent, /Поле пустое/);
+    assert.equal(f.delivered.join(""), sentPrefix);
   } finally { f.dispose(); }
 });
 
